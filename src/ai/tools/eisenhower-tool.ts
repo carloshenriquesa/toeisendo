@@ -34,6 +34,7 @@ export const eisenhowerTool = tool({
         ## IMPORTANTE
         - Considerar as tarefas já cadastradas para questões de priorização.
         - Incluir no campo explanation a justificativa da tarefa estar em determinado quadrante.
+        - O retorno será o quadrante e a explicação da tarefa apenas.
 
         ### Exemplos:
         - Quadrante 1: fazer
@@ -72,6 +73,8 @@ export const eisenhowerTool = tool({
         explanation: z.string().nullable().describe('Explicação da tarefa'),
     }),
     execute: async ({ quadrant, explanation }) => {
+        console.log('Quadrante:', quadrant);
+        console.log('Explicação:', explanation);
         return {
             quadrant,
             explanation,

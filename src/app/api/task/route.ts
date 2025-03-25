@@ -7,7 +7,7 @@ import { Task } from '@/schema/todo';
 export async function POST(request: Request) {
     const { title, description } = await request.json() as Pick<Task, 'title' | 'description'>;
     let taskData: Pick<Task, 'quadrant' | 'explanation'> = {
-        quadrant: "Q1",
+        quadrant: "Q4",
         explanation: "",
     };
 
@@ -22,14 +22,21 @@ export async function POST(request: Request) {
         system: `
             Você é um assistente especializado em planejamento de tarefas baseado na matriz de Eisenhower.
             Você deve ajudar o usuário a priorizar suas tarefas de acordo com a urgência e importância de cada uma.
+            
+            **IMPPORTANTE**
+            O retorno deve ser no formato JSON com os campos "quadrant" e "explanation", respeitando o que é retornado pela ferramenta.
         `.trim(),
-        maxSteps: 3,
+        maxSteps: 5,
         onStepFinish: (result) => {
-            Object.assign(taskData, JSON.parse(result.text.replace(/```json\s*|\s*```/g, '').trim()));
+            console.log("STEP TYPE", result.stepType);
+            console.log("STEP TEXT", result.text);
+            const text = JSON.parse(result.text.replace(/```json\s*|\s*```/g, '').trim());
+            Object.assign(taskData, text);
         },
     });
 
     try {        
+        console.log("TASK", taskData);
         const response = {
             id: Date.now().toString(),
             createdAt: new Date().toISOString(),
