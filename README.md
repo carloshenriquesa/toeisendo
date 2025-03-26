@@ -1,36 +1,120 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<h1 align="center">ToEisenDo</h1>
+<p align="center">Projeto TO DO com base na Matriz de Eisenhower, utilizando modelo reasoning de IA para categorização.</p>
 
-## Getting Started
+![ToEisenDo](https://github.com/user-attachments/assets/71cc86bb-3644-46c0-96dc-9d5ae92ebd24)
 
-First, run the development server:
+![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)
+![Zod](https://img.shields.io/badge/zod-%233068b7.svg?style=for-the-badge&logo=zod&logoColor=white)
+![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Principais Dependências e Versões
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Aqui está uma lista das principais dependências usadas neste projeto e suas respectivas versões:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+*   **Next.js:** `15.2.3` - O framework React para construção de aplicações web.
+*   **AI SDK (Groq):** `^1.2.1` - SDK para interagir com modelos de IA Groq.
+*   **AI:** `^4.2.2` - Biblioteca geral de IA.
+*   **Tailwind CSS:** `^4` - Um framework CSS utilitário-primeiro.
+*   **Zod:** `^3.24.2` - Uma biblioteca de validação de esquema TypeScript-first.
+*   **Typescript:** `^5` - Linguagem para verificação de tipos.
+*   **Eslint:** `^9` - Linter para javascript e typescript.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Instalação
 
-## Learn More
+Para configurar o projeto localmente, siga estes passos:
 
-To learn more about Next.js, take a look at the following resources:
+1.  **Clone o repositório:**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+    ```bash
+    git clone https://github.com/carloshenriquesa/toeisendo
+    cd toeisendo
+    ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+2.  **Instale as dependências:**
 
-## Deploy on Vercel
+    ```bash
+    npm install
+    ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+    ou
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+    ```bash
+    yarn install
+    ```
+
+## Execução Local
+
+Após as dependências serem instaladas, você pode executar o projeto localmente usando os seguintes comandos:
+
+1.  **Modo de desenvolvimento:**
+
+    ```bash
+    npm run dev
+    ```
+
+    ou
+
+    ```bash
+    yarn dev
+    ```
+
+    Isso iniciará o servidor de desenvolvimento, e você poderá acessar a aplicação no seu navegador em `http://localhost:3000`.
+    
+3.  **Build para produção:**
+
+    ```bash
+    npm run build
+    ```
+
+    ou
+
+    ```bash
+    yarn build
+    ```
+
+    Este comando irá criar um build de produção otimizado da aplicação no diretório `.next`.
+
+4.  **Iniciar servidor de produção:**
+
+    ```bash
+    npm run start
+    ```
+
+    ou
+
+    ```bash
+    yarn start
+    ```
+
+    Isso iniciará um servidor de produção que servirá a aplicação construída.
+
+5. **Lint**
+    ```bash
+    npm run lint
+    ```
+    ou
+    ```bash
+    yarn lint
+    ```
+    Este comando irá executar o linter para verificar a qualidade do código.
+
+## Contribuindo
+
+Se você deseja contribuir para este projeto, por favor, siga o fluxo padrão do GitHub:
+
+1.  Faça um fork do repositório.
+2.  Crie uma nova branch para sua feature ou correção de bug.
+3.  Faça commit das suas alterações.
+4.  Envie sua branch para o seu fork.
+5.  Crie um pull request.
+
+## TO DO
+
+- [ ] Configurar banco de dados.
+
+## Licença
+
+[![CC0](https://licensebuttons.net/p/zero/1.0/88x31.png)](https://creativecommons.org/publicdomain/zero/1.0/)
+
