@@ -6,7 +6,7 @@ import { Task } from '@/schema/todo';
 
 export async function POST(request: Request) {
     const { title, description } = await request.json() as Pick<Task, 'title' | 'description'>;
-    let taskData: Pick<Task, 'quadrant' | 'explanation'> = {
+    const taskData: Pick<Task, 'quadrant' | 'explanation'> = {
         quadrant: "Q4",
         explanation: "",
     };
@@ -15,7 +15,7 @@ export async function POST(request: Request) {
         apiKey: process.env.NEXT_PUBLIC_GROC_API_KEY,
     });
 
-    const { text: task, steps } = await generateText({
+    await generateText({
         model: groq('deepseek-r1-distill-qwen-32b'),  
         prompt: title,
         tools: { eisenhowerTool },
