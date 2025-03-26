@@ -28,15 +28,12 @@ export async function POST(request: Request) {
         `.trim(),
         maxSteps: 5,
         onStepFinish: (result) => {
-            console.log("STEP TYPE", result.stepType);
-            console.log("STEP TEXT", result.text);
             const text = JSON.parse(result.text.replace(/```json\s*|\s*```/g, '').trim());
             Object.assign(taskData, text);
         },
     });
 
     try {        
-        console.log("TASK", taskData);
         const response = {
             id: Date.now().toString(),
             createdAt: new Date().toISOString(),

@@ -1,18 +1,13 @@
 'use client';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Task } from "@/schema/todo";
+import { Quadrant, Task } from "@/schema/todo";
 import { postTaskService } from "@/services/task-service";
 import { LoaderCircle, PlusIcon } from "lucide-react";
 import { useState } from "react";
-import TaskList from "@/components/TaskList";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import QuadrantList from "@/components/QuadrantList";
 
 export default function Home() {
-    const [taskListQ1, setTaskListQ1] = useState<Task[]>([]);
-    const [taskListQ2, setTaskListQ2] = useState<Task[]>([]);
-    const [taskListQ3, setTaskListQ3] = useState<Task[]>([]);
-    const [taskListQ4, setTaskListQ4] = useState<Task[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
     const [task, setTask] = useState<Task>({
         id: "",
@@ -25,6 +20,19 @@ export default function Home() {
         explanation: null,
         description: null,
     });
+    const [quadrantList, setQuadrantList] = useState<Quadrant[]>([{
+        quadrant: "Q1",
+        tasks: [],
+    }, {
+        quadrant: "Q2",
+        tasks: [],
+    }, {
+        quadrant: "Q3",
+        tasks: [],
+    }, {
+        quadrant: "Q4",
+        tasks: [],
+    }]);
 
     async function addTask() {
         try {
@@ -32,19 +40,97 @@ export default function Home() {
             const data = await postTaskService({title: task.title, description: task.description});
             switch (data.quadrant) {
                 case "Q1":
-                    setTaskListQ1([...taskListQ1, data]);
+                    setQuadrantList([
+                        {
+                            quadrant: "Q1",
+                            tasks: [...quadrantList[0].tasks, data],
+                        },
+                        {
+                            quadrant: "Q2",
+                            tasks: quadrantList[1].tasks,
+                        },
+                        {
+                            quadrant: "Q3",
+                            tasks: quadrantList[2].tasks,
+                        },
+                        {
+                            quadrant: "Q4",
+                            tasks: quadrantList[3].tasks,
+                        },
+                    ]);
                     break;
                 case "Q2":
-                    setTaskListQ2([...taskListQ2, data]);
+                    setQuadrantList([
+                        {
+                            quadrant: "Q1",
+                            tasks: quadrantList[0].tasks,
+                        },
+                        {
+                            quadrant: "Q2",
+                            tasks: [...quadrantList[1].tasks, data],
+                        },
+                        {
+                            quadrant: "Q3",
+                            tasks: quadrantList[2].tasks,
+                        },
+                        {
+                            quadrant: "Q4",
+                            tasks: quadrantList[3].tasks,
+                        },
+                    ]);
                     break;
                 case "Q3":
-                    setTaskListQ3([...taskListQ3, data]);
+                    setQuadrantList([
+                        {
+                            quadrant: "Q1",
+                            tasks: quadrantList[0].tasks,
+                        },
+                        {
+                            quadrant: "Q2",
+                            tasks: quadrantList[1].tasks,
+                        },
+                        {
+                            quadrant: "Q3",
+                            tasks: [...quadrantList[2].tasks, data],
+                        },
+                        {
+                            quadrant: "Q4",
+                            tasks: quadrantList[3].tasks,
+                        },
+                    ]);
                     break;
                 case "Q4":
-                    setTaskListQ4([...taskListQ4, data]);
+                    setQuadrantList([
+                        {
+                            quadrant: "Q1",
+                            tasks: quadrantList[0].tasks,
+                        },
+                        {
+                            quadrant: "Q2",
+                            tasks: quadrantList[1].tasks,
+                        },
+                        {
+                            quadrant: "Q3",
+                            tasks: quadrantList[2].tasks,
+                        },
+                        {
+                            quadrant: "Q4",
+                            tasks: [...quadrantList[3].tasks, data],
+                        },
+                    ]);
                     break;
             }
-            setTask({ ...task, title: "" });
+            setTask({
+                id: "",
+                title: "",
+                quadrant: "Q4",
+                completed: false,
+                createdAt: "",
+                updatedAt: null,
+                deletedAt: null,
+                explanation: null,
+                description: null,
+            });
         } catch (error) {
             console.error(error);
         } finally {
@@ -52,8 +138,20 @@ export default function Home() {
         }
     };
 
+    function deleteTask(id: string) {
+        setQuadrantList((prevQuadrantList) => {
+            return prevQuadrantList.map((quadrant) => {
+                const updatedTasks = quadrant.tasks.filter((task) => task.id !== id);
+                return {
+                    ...quadrant,
+                    tasks: updatedTasks,
+                };
+            });
+        });
+    }
+
     return (
-        <main className="flex flex-col justify-center w-[600px] mx-auto my-6 p-6 bg-white rounded-md">
+        <main className="flex flex-col justify-center max-w-[600px] mx-auto md:my-6 p-6 bg-white md:rounded-md">
             <form
                 className="w-full"
                 onSubmit={(e) => {
@@ -66,6 +164,7 @@ export default function Home() {
                             value={task.title}
                             placeholder="Tarefa"
                             onChange={(e) => setTask({ ...task, title: e.target.value })}
+                            maxLength={50}
                             disabled={loading}
                         />
                         <Button type="submit">
@@ -75,36 +174,7 @@ export default function Home() {
                     </div>
             </form>
 
-            <Accordion type="multiple" className="w-full mt-4">
-                <AccordionItem value="q1">
-                    <AccordionTrigger className="text-red-800">Q1</AccordionTrigger>
-                    <AccordionContent>
-                        {taskListQ1.length === 0 && <small className="flex justify-center">Sem tarefas</small>}
-                        <TaskList taskList={taskListQ1} />
-                    </AccordionContent>
-                </AccordionItem>
-                <AccordionItem value="q2">
-                    <AccordionTrigger className="text-orange-500">Q2</AccordionTrigger>
-                    <AccordionContent>
-                        {taskListQ2.length === 0 && <small className="flex justify-center">Sem tarefas</small>}
-                        <TaskList taskList={taskListQ2} />
-                    </AccordionContent>
-                </AccordionItem>
-                <AccordionItem value="q3">
-                    <AccordionTrigger className="text-green-700">Q3</AccordionTrigger>
-                    <AccordionContent>
-                        {taskListQ3.length === 0 && <small className="flex justify-center">Sem tarefas</small>}
-                        <TaskList taskList={taskListQ3} />              
-                    </AccordionContent>
-                </AccordionItem>
-                <AccordionItem value="q4">
-                    <AccordionTrigger className="text-blue-700">Q4</AccordionTrigger>
-                    <AccordionContent>
-                        {taskListQ4.length === 0 && <small className="flex justify-center">Sem tarefas</small>}
-                        <TaskList taskList={taskListQ4} />
-                    </AccordionContent>
-                </AccordionItem>
-            </Accordion>
+            <QuadrantList quadrantList={quadrantList} onDelete={(id) => deleteTask(id)} />
         </main>
     );
 }

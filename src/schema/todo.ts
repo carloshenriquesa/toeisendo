@@ -12,8 +12,10 @@ export const Task = z.object({
     explanation: z.string().nullable(),
 });
 
+export const Quadrant = z.object({
+    quadrant: z.enum(['Q1', 'Q2', 'Q3', 'Q4']),
+    tasks: z.array(Task),
+});
+
 export type Task = z.infer<typeof Task>;
-
-export const TaskList = z.array(Task);
-
-export type TaskList = z.infer<typeof TaskList>;
+export type Quadrant = z.infer<typeof Quadrant>;

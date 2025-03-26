@@ -32,8 +32,7 @@ export const eisenhowerTool = tool({
         Estas distrações sem importância ou urgência estão simplesmente atrapalhando a realização das suas metas. Coloque estes itens restantes no quarto quadrante, que orienta a eliminar as tarefas. 
 
         ## IMPORTANTE
-        - Considerar as tarefas já cadastradas para questões de priorização.
-        - Incluir no campo explanation a justificativa da tarefa estar em determinado quadrante.
+        - Incluir no campo explanation a justificativa da tarefa estar em determinado quadrante. Tente ser o mais objetivo possível.
         - O retorno será o quadrante e a explicação da tarefa apenas.
 
         ### Exemplos:
@@ -73,8 +72,6 @@ export const eisenhowerTool = tool({
         explanation: z.string().nullable().describe('Explicação da tarefa'),
     }),
     execute: async ({ quadrant, explanation }) => {
-        console.log('Quadrante:', quadrant);
-        console.log('Explicação:', explanation);
         return {
             quadrant,
             explanation,
