@@ -44,6 +44,17 @@ Para configurar o projeto localmente, siga estes passos:
     yarn install
     ```
 
+3. **Variáveis de ambiente**
+   
+   Necessário criar uma conta no Groq (https://groq.com) e criar seu token.
+   Criar o arquivo `.env.local` na raiz do projeto e incluir seu token com o nome da variável `NEXT_PUBLIC_GROC_API_KEY`:
+
+   ```bash
+   // .env.local
+   
+    NEXT_PUBLIC_GROC_API_KEY=<seu_token>
+    ```
+
 ## Execução Local
 
 Após as dependências serem instaladas, você pode executar o projeto localmente usando os seguintes comandos:
